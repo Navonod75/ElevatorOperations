@@ -80,6 +80,7 @@ class RobotMain(object):
             ret2 = self._arm.get_err_warn_code()
             self.pprint('{}, code={}, connected={}, state={}, error={}, ret1={}. ret2={}'.format(label, code, self._arm.connected, self._arm.state, self._arm.error_code, ret1, ret2))
         return self.is_alive
+    
 
     @staticmethod
     def pprint(*args, **kwargs):

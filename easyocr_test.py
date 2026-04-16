@@ -10,24 +10,25 @@ if __name__ == '__main__':
     reader = easyocr.Reader(['en']) # this needs to run only once to load the model into memory
 
 
-    for file in os.scandir("thesis/references"):
-        print(file.name)
-        if file.is_file():
-            img_name = "thesis/references/" + file.name
-            result = reader.readtext(img_name, paragraph=False)
+    for file in os.scandir("../thesis"):
+        if file.name == "shapes_good.png":
+            print(file.name)
+            if file.is_file():
+                img_name = "../thesis/" + file.name
+                result = reader.readtext(img_name, paragraph=False)
 
-            # for item in result:
-            #     print(item)
+                # for item in result:
+                #     print(item)
 
-            img = cv2.imread(img_name)
-            image_new = img.copy()
-            print(result)
-            for box in result:
-                overlay = image_new.copy()
-                cv2.rectangle(overlay,(int(box[0][0][0]), int(box[0][0][1])),(int(box[0][2][0]), int(box[0][2][1])),(0,255,0),-1)
-                image_new = cv2.addWeighted(overlay, alpha, image_new, 1 - alpha, 0)
+                img = cv2.imread(img_name)
+                image_new = img.copy()
+                print(result)
+                for box in result:
+                    overlay = image_new.copy()
+                    cv2.rectangle(overlay,(int(box[0][0][0]), int(box[0][0][1])),(int(box[0][2][0]), int(box[0][2][1])),(0,255,0),-1)
+                    image_new = cv2.addWeighted(overlay, alpha, image_new, 1 - alpha, 0)
 
-            cv2.imwrite("thesis/easy_res/" + file.name, image_new)
+                cv2.imwrite("../thesis/easy_res/" + file.name, image_new)
 
 
 def find_numb(img, target):

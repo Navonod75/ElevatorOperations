@@ -33,16 +33,19 @@ class RobotMain(object):
     def __init__(self, robot, **kwargs):
         self.alive = True
         self._arm = robot
-        self._tcp_speed = 40
+        self._tcp_speed = 30
         self._tcp_acc = 2000
-        self._angle_speed = 20
+        self._angle_speed = 15
         self._angle_acc = 500
         self._vars = {}
         self._funcs = {}
         self._robot_init()
+        self.rest()
     
     def rest(self):
-        self._arm.set_servo_angle(angle=[4.827581, -0.846485, 0.008727, 0.13439, -0.870919, 2.99673, 0.0], speed=self._angle_speed, is_radian=True, radius=60, wait=False)
+        # self._arm.set_servo_angle(angle=[4.827581, -0.846485, 0.008727, 0.13439, -0.870919, 2.99673, 0.0], speed=self._angle_speed-10, is_radian=True, radius=60, wait=False)
+        self._arm.set_servo_angle(angle=[276.6, -38.8, 0.5, 7.7, -48.1, 171.7, 0.0], speed=self._angle_speed-10, is_radian=False, radius=60, wait=True)
+
 
     # Robot init
     def _robot_init(self):
@@ -146,9 +149,9 @@ class RobotMain(object):
         except Exception as e:
             self.pprint('MainException: {}'.format(e))
 
-    def forward(self, dist=25):
+    def forward(self, dist=25, wait=False):
         try:
-            code = self._arm.set_position(y=-dist, radius=-1, speed=self._tcp_speed, mvacc=self._tcp_acc, relative=True, wait=False)
+            code = self._arm.set_position(y=-dist, radius=-1, speed=self._tcp_speed, mvacc=self._tcp_acc, relative=True, wait=wait)
             if not self._check_code(code, 'set_position'):
                 return
         except Exception as e:
@@ -196,4 +199,6 @@ if __name__ == '__main__':
     RobotMain.pprint('xArm-Python-SDK Version:{}'.format(version.__version__))
     arm = XArmAPI('192.168.1.222', baud_checkset=False)
     robot_main = RobotMain(arm)
-    robot_main.run()
+    # robot_main.run()
+    robot_main.rest()
+    

@@ -32,10 +32,10 @@ class Arm:
         self.arm.set_servo_angle(angle=[4.827581, -0.203028, 0.008842, 0.133888, -1.652684, 2.99643, 0.0], speed=20, is_radian=True, radius=60, wait=False)
 
 
-    def __del__(self):
-        # self.go_to_rest()
-        self.arm.set_state(state=4)
-        self.arm.disconnect()
+    # def __del__(self):
+    #     # self.go_to_rest()
+    #     self.arm.set_state(state=4)
+    #     self.arm.disconnect()
 
     def get_pos(self):
         # Returns a list containing [X,Y,Z,Roll,Pitch,Yaw]
@@ -95,7 +95,7 @@ class Arm:
 if __name__ == "__main__":
     arm = Arm()
     # arm.
-    print(arm.get_anlges())
+    # print(arm.get_anlges())
     # arm.set_pos()
 
     # for i in range(6):
@@ -103,6 +103,8 @@ if __name__ == "__main__":
     # arm.get_anlges
 
     # arm.go_to_rest()
+    arm.arm.set_servo_angle(angle=[-15.241766, 18.481212, -2.15266, -359.999925, -0.000344, 180.000134], speed=20, is_radian=False, radius=60, wait=False)
+
     
 
 #[1.699168, 0.194476, -0.363007, -0.358848, -1.342569, 3.108848, 0.0] camera test pos
